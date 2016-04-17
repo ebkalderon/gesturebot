@@ -3,47 +3,53 @@
 Servo right;
 Servo left;
 
-void Move_Forward()
+void Move_Forward(int speed)
 {
+  //0
+  //from 0-90
   //moves forward 
-  right.write(180);
-  left.write(0); 
+  right.write(180-speed);
+  left.write(speed); 
 }
 
-void Move_Backward()
+void Move_Backward(int speed)
 {
+  //180
   //moves backward 
-  right.write(0);
-  left.write(180);
+  right.write(180-speed);
+  left.write(speed);
 }
 
-void Move_Right()
+void Move_Right(int speed)
 {
+  //0
   //moves right
-  right.write(180);
+  right.write(180-speed);
   left.write(90);
 }
 
-void Move_Left()
+void Move_Left(int speed)
 {
+  //0
   //moves left 
   right.write(90);
-  left.write(0);
+  left.write(speed);
 }
 
-void Move_In_circle()
+void Move_In_circle(int speed)
 {
+  //180
   //moves in circle 
-  right.write(180);
-  left.write(180); 
+  right.write(speed);
+  left.write(speed); 
 }
 
 void setup() {
   // put your setup code here, to run once:
   right.attach(2);
   left.attach(3);
-
-  Move_In_circle();
+  
+  Move_In_circle(180);
 }
 
 void loop() {
