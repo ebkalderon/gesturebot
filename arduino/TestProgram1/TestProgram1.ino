@@ -3,41 +3,27 @@
 Servo right;
 Servo left;
 
-void Move_Forward(int speed)
-{
-  //0
-  //from 0-90
-  //moves forward 
-  right.write(180-speed);
+// Moves the car forward (0-89), backward (91-180), or stop (90).
+void Move(int speed) {
+  right.write(180 - speed);
   left.write(speed); 
 }
 
-void Move_Backward(int speed)
-{
-  //180
-  //moves backward 
-  right.write(180-speed);
-  left.write(speed);
-}
-
-void Move_Right(int speed)
-{
+void Turn_Right(int speed) {
   //0
   //moves right
-  right.write(180-speed);
+  right.write(180 - speed);
   left.write(90);
 }
 
-void Move_Left(int speed)
-{
+void Turn_Left(int speed) {
   //0
   //moves left 
   right.write(90);
   left.write(speed);
 }
 
-void Move_In_circle(int speed)
-{
+void Move_In_Circle(int speed) {
   //180
   //moves in circle 
   right.write(speed);
@@ -49,11 +35,10 @@ void setup() {
   right.attach(2);
   left.attach(3);
   
-  Move_In_circle(180);
+  Move(0);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   //right.write(120);
 }
-
