@@ -4,14 +4,14 @@ Vehicle *car;
 
 void setup()
 {
-    // Initializes car's servo motors.
+    // Initialize car's servo motors.
     car = new Vehicle(2, 3);
 
-    // Opens a serial connection through USB.
+    // Open a serial connection through USB.
     Serial.begin(9600);
     while (!Serial);
 
-    // Prints help text.
+    // Print help text.
     Serial.println("Known commands:");
     Serial.println("  move <number>     Drive at speed 0-100 (pos == forward, neg == backward)");
     Serial.println("  left <number>     Stop and turn left at speed 0-100");
