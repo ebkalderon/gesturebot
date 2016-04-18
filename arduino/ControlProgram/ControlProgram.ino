@@ -2,13 +2,47 @@
 
 Vehicle *car;
 
-// Initializes the car's subsystems.
-void setup() {
-  car = new Vehicle(2, 3);
-  car->move(100);
+void setup()
+{
+    // Initializes car's servo motors.
+    car = new Vehicle(2, 3);
+
+    // Opens a serial connection through USB.
+    Serial.begin(9600);
+    while (!Serial);
+
+    // Prints help text.
+    Serial.println("Known commands:");
+    Serial.println("  move <number>     Drive at speed 0-100 (pos == forward, neg == backward)");
+    Serial.println("  left <number>     Stop and turn left at speed 0-100");
+    Serial.println("  right <number>    Stop and turn right at speed 0-100");
+    Serial.println("  circle <number>   Spin in place at speed 0-100 (pos == left, neg == right)\n");
 }
 
-// Processes commands received from Xbox Kinect.
-void loop() {
-    // Monitor USB cable for data, parse string and call correct functions above.
+void loop()
+{
+    // Process commands entered from serial connection.
+    while (Serial.available() > 0) {      
+        String action = Serial.readStringUntil(' ');
+        String value = Serial.readStringUntil('\n');
+        
+        if (action == "move") {
+            car->move(value.toInt());
+        } else if (action == "left") {
+            car->turn_left(value.toInt());
+        } else if (action == "right") {
+            car->turn_right(value.toInt());
+        } else if (action == "circle") {
+            car->spin_in_circle(value.toInt());
+        } else {
+            continue;
+        }
+
+        Serial.println("Recognized command \"" + action + " " + value + "\".");
+    }
+
+    // If serial connection broken, stop the car.
+    if (!Serial) {
+        car->move(0);
+    }
 }
