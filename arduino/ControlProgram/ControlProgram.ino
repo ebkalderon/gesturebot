@@ -6,11 +6,11 @@ void setup()
 {
     // Initialize car's servo motors.
     car = new Vehicle(2, 3);
-
+  
     // Open a serial connection through USB.
-    Serial.begin(9600);
+    Serial.begin(19200);
     while (!Serial);
-
+  
     // Print help text.
     Serial.println("Known commands:");
     Serial.println("  move <number>     Drive at speed 0-100 (pos == forward, neg == backward)");
@@ -21,28 +21,30 @@ void setup()
 
 void loop()
 {
-    // Process commands entered from serial connection.
-    while (Serial.available() > 0) {      
-        String action = Serial.readStringUntil(' ');
-        String value = Serial.readStringUntil('\n');
-        
-        if (action == "move") {
-            car->move(value.toInt());
-        } else if (action == "left") {
-            car->turn_left(value.toInt());
-        } else if (action == "right") {
-            car->turn_right(value.toInt());
-        } else if (action == "circle") {
-            car->spin_in_circle(value.toInt());
-        } else {
-            continue;
-        }
+  // Process commands entered from serial connection.
+  while (Serial.available() > 0) {
+      String action = Serial.readStringUntil(' ');
+      String value = Serial.readStringUntil('\n');
+  
+      if (action == "move") {
+          car->move(value.toInt());
+      } else if (action == "left") {
+          car->turn_left(value.toInt());
+      } else if (action == "right") {
+          car->turn_right(value.toInt());
+      } else if (action == "circle") {
+          car->spin_in_circle(value.toInt());
+      } else {
+          break;
+      }
+  
+      Serial.println("Recognized command \"" + action + " " + value + "\".");
+  }
 
-        Serial.println("Recognized command \"" + action + " " + value + "\".");
-    }
-
-    // If serial connection broken, stop the car.
-    if (!Serial) {
-        car->move(0);
-    }
+  // If serial connection broken, stop the car and wait.
+  if (!Serial) {
+      //car->move(0);
+      Serial.begin(19200);
+      while (!Serial);
+  }
 }

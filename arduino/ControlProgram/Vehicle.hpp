@@ -21,9 +21,15 @@ public:
     void spin_in_circle(int speed);
 
 private:
+    // Activate the servo pins RIGHT_PIN and LEFT_PIN.
+    void attach_servos();
+
     // Transforms a speed value from [-100, 100] to [0, 180].
     unsigned convert_speed(int speed);
-  
+
+    int RIGHT_PIN;
+    int LEFT_PIN;
+
     Servo right;
     Servo left;
 };
