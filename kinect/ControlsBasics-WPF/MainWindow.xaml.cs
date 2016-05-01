@@ -44,6 +44,7 @@ namespace Microsoft.Samples.Kinect.ControlsBasics
             // initialize the sensor chooser and UI
             this.sensorChooser = new KinectSensorChooser();
             this.sensorChooserUi.KinectSensorChooser = this.sensorChooser;
+            this.sensorChooser.KinectChanged += SensorChooserOnKinectChanged;
             this.sensorChooser.Start();
 
             // Bind the sensor chooser's current sensor to the KinectRegion
