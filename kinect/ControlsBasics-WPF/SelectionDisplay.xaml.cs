@@ -31,11 +31,15 @@
             {
                 this.messageTextBlock.Text = "Car is moving right";
                 port.Write("right 30\n");
+                System.Threading.Thread.Sleep(1000);
+                port.Write("move 30\n");
             }
             if (itemId.Equals("Left"))
             {
                 this.messageTextBlock.Text = "Car is moving left";
                 port.Write("left 30\n");
+                System.Threading.Thread.Sleep(1000);
+                port.Write("move 30\n");
             }
             if (itemId.Equals("Circle"))
             {
